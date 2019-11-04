@@ -1,4 +1,4 @@
-### Ohjelmistotekniikan laskarit 
+## Ohjelmistotekniikan laskarit 
 
 **Viikko 1**
 

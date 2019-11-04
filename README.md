@@ -1,5 +1,7 @@
 ## Ohjelmistotekniikan laskarit 
 
+**MUUTOS** 
+
 **Viikko 1**
 
 Viikolla 1 harjoitellaan **versionhallintaa**!

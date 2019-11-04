@@ -1,6 +1,4 @@
-### Ohjelmistotekniikan laskarit
-
-## Tehtävät
+### Ohjelmistotekniikan laskarit 
 
 **Viikko 1**
 
@@ -12,4 +10,3 @@ Viikolla 1 harjoitellaan **versionhallintaa**!
 
 
 _To be continued..._
-

@@ -103,14 +103,14 @@ public class MaksukorttiTest { //Testiluokan nimen on aina pääsyttävä "Test"
         assertEquals("Kortilla on rahaa 2.5 euroa", kortti.toString());
     }
     
-     //Tehtava, oma testi 2
+    //Tehtava, oma testi 2
     @Test
     public void negatiivinenLatausEiMuutaKortinSaldoa() {
         kortti.lataaRahaa(-5); //Ei pitäisi muuttaa kortin saldoa (10)
         assertEquals("Kortilla on rahaa 10.0 euroa", kortti.toString());
     }
     
-        //Tehtava, oma testi 3
+    //Tehtava, oma testi 3
     @Test
     public void voiOstaaEdullisenLounaanJosLoppusaldoNolla() {
         kortti.syoEdullisesti(); //-2.5
@@ -121,6 +121,7 @@ public class MaksukorttiTest { //Testiluokan nimen on aina pääsyttävä "Test"
         assertEquals("Kortilla on rahaa 0.0 euroa", kortti.toString());
     }
     
+    //Tehtava, oma testi 4
     @Test
     public void voiOstaaMaukkaanLounaanJosLoppusaldoNolla() {
         kortti.lataaRahaa(2); //Nyt kortin saldo on 12

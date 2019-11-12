@@ -1,4 +1,4 @@
-### StudyTracker
+# StudyTracker
 
 Ohjelmistotekniikan projekti.
 

@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<testsuite tests="7" failures="0" name="com.mycompany.unicafe.MaksukorttiTest" time="0" errors="0" skipped="0">
+<testsuite tests="12" failures="0" name="com.mycompany.unicafe.KassapaateTest" time="0.01" errors="0" skipped="0">
   <properties>
     <property name="java.runtime.name" value="OpenJDK Runtime Environment"/>
     <property name="java.vm.version" value="11.0.4+11-post-Ubuntu-1ubuntu218.04.3"/>
@@ -61,11 +61,16 @@
     <property name="sun.desktop" value="gnome"/>
     <property name="sun.cpu.isalist" value=""/>
   </properties>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="lataaminenKasvattaaSaldoaOikein" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="toStringPalautusToimii" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="luotuKorttiOlemassa" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="otaRahaaPalauttaaOikeanArvon" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="kortinAlkusaldoOnOikein" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="saldoVaheneeOikeinKunRahaaRiittavasti" time="0"/>
-  <testcase classname="com.mycompany.unicafe.MaksukorttiTest" name="saldoEiMuutuJosRahaaEiTarpeeksi" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoMaukkaastiToimiiKunKorttillaOnKatetta" time="0.01"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="uudenKassanTilastotOvatOikein" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoMaukkaastiToimiiKunKateismaksuEiRiittava" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoEdullisestiToimiiKunKateismaksuEiRiittava" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoEdullisestiToimiiKunKortillaOnKatetta" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoMaukkaastiToimiiKunKortillaEiKatetta" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="uudessaKassassaOnOikeaSumma" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoEdullisestiToimiiKunKortillaEiKatetta" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="kortinLatausToimiiPositiivisellaSummalla" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoMaukkaastiToimiiKunKateismaksuOnRiittava" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="syoEdullisestiToimiiKunKateismaksuOnRiittava" time="0"/>
+  <testcase classname="com.mycompany.unicafe.KassapaateTest" name="kortinLatausToimiiNegatiivisellaSummalla" time="0"/>
 </testsuite>

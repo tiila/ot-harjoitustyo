@@ -5,7 +5,6 @@ package com.mycompany.unicafe;
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -18,58 +17,176 @@ import static org.junit.Assert.*;
  * @author dell
  */
 public class KassapaateTest {
+
+    Kassapaate paate;
+    Maksukortti korttiEiTarpeeksiSaldoa;
+    Maksukortti korttiSaldoaRiittaa;
+
+    @Before
+    public void setUp() {
+        paate = new Kassapaate();
+        korttiEiTarpeeksiSaldoa = new Maksukortti(100);
+        korttiSaldoaRiittaa = new Maksukortti(10000);
+    }
+
+    @Test
+    public void uudessaKassassaOnOikeaSumma() {
+        assertEquals(100000, paate.kassassaRahaa());
+    }
+
+    @Test
+    public void uudenKassanTilastotOvatOikein() {
+        int edullisia = paate.edullisiaLounaitaMyyty();
+        int maukkaita = paate.maukkaitaLounaitaMyyty();
+        int lounaitamyyty = edullisia + maukkaita;
+        assertEquals(0, lounaitamyyty);
+
+    }
+
+    @Test
+    public void syoEdullisestiToimiiKunKateismaksuOnRiittava() {
+        paate.syoEdullisesti(250);
+        assertEquals(100240, paate.kassassaRahaa()); //Lisaa oikean summan kassaan
+        int palautus = 250 - 240;
+        assertEquals(10, palautus); //Palauttaa oikean summan
+        assertEquals(1, paate.edullisiaLounaitaMyyty()); //Lisää myydyn lounaan tilastoon
+
+    }
+
+    @Test
+    public void syoEdullisestiToimiiKunKateismaksuEiRiittava() {
+        paate.syoEdullisesti(230);
+        assertEquals(100000, paate.kassassaRahaa()); //Ei lisää kassaan rahaa
+        assertEquals(0, paate.edullisiaLounaitaMyyty()); //Ei lisää mitään tilastoihin
+        assertEquals(230, paate.syoEdullisesti(230)); //Palauttaa koko maksun
+
+    }
+
+    @Test
+    public void syoMaukkaastiToimiiKunKateismaksuOnRiittava() {
+        paate.syoMaukkaasti(420);
+        assertEquals(100400, paate.kassassaRahaa());
+        int palautus = 420 - 400;
+        assertEquals(20, palautus); //Palauttaa oikean summan
+        assertEquals(1, paate.maukkaitaLounaitaMyyty()); //Lisää myydyn lounaan tilastoon
+
+    }
+
+    @Test
+    public void syoMaukkaastiToimiiKunKateismaksuEiRiittava() {
+        paate.syoMaukkaasti(390);
+        assertEquals(100000, paate.kassassaRahaa()); //Ei lisää kassaan rahaa
+        assertEquals(0, paate.maukkaitaLounaitaMyyty()); //Ei lisää mitään tilastoihin
+        assertEquals(390, paate.syoMaukkaasti(390)); //Palauttaa koko maksun
+
+    }
+
     /*
     
-Tee testit jotka testaavat ainakin seuraavia asioita:
+    public boolean syoEdullisesti(Maksukortti kortti) {
+        if (kortti.saldo() >= 240) {
+            kortti.otaRahaa(240);
+            this.edulliset++;
+            return true;
+        } else {
+            return false;
+        }
+    }
 
-* luodun kassapäätteen rahamäärä ja myytyjen lounaiden määrä on oikea (rahaa 1000, lounaita myyty 0)
-* käteisosto toimii sekä edullisten että maukkaiden lounaiden osalta
--jos maksu riittävä: kassassa oleva rahamäärä kasvaa lounaan hinnalla ja vaihtorahan suuruus on oikea
--jos maksu on riittävä: myytyjen lounaiden määrä kasvaa
--jos maksu ei ole riittävä: kassassa oleva rahamäärä ei muutu, kaikki rahat palautetaan vaihtorahana ja myytyjen lounaiden määrässä ei muutosta
-* seuraavissa testeissä tarvitaan myös Maksukorttia jonka oletetaan toimivan oikein
-* korttiosto toimii sekä edullisten että maukkaiden lounaiden osalta
-- jos kortilla on tarpeeksi rahaa, veloitetaan summa kortilta ja palautetaan true
-- jos kortilla on tarpeeksi rahaa, myytyjen lounaiden määrä kasvaa
-- jos kortilla ei ole tarpeeksi rahaa, kortin rahamäärä ei muutu, myytyjen lounaiden määrä muuttumaton ja palautetaan false
-* kassassa oleva rahamäärä ei muutu kortilla ostettaessa
-* kortille rahaa ladattaessa kortin saldo muuttuu ja kassassa oleva rahamäärä kasvaa ladatulla summalla
- 
-- Varmista jacocon avulla, että kassapäätteen testeillä on 100% lause- ja haaraumakattavuus! 
+     */
+    @Test
+    public void syoEdullisestiToimiiKunKortillaOnKatetta() {
+        paate.syoEdullisesti(korttiSaldoaRiittaa);
+        int kortinsaldo = korttiSaldoaRiittaa.saldo();
+        assertEquals(9760, kortinsaldo); //Ottaa rahaa kortilta
+        assertEquals(100000, paate.kassassaRahaa()); //Kassan rahamaara ei muutu
+        assertEquals(1, paate.edullisiaLounaitaMyyty()); //Lisää myydyn lounaan tilastoon
+        assertEquals(true, paate.syoEdullisesti(korttiSaldoaRiittaa));
+    }
+
+    @Test
+    public void syoEdullisestiToimiiKunKortillaEiKatetta() {
+        paate.syoEdullisesti(korttiEiTarpeeksiSaldoa);
+        assertEquals(100000, paate.kassassaRahaa()); //Kassan rahamaara ei muutu
+        assertEquals(100, korttiEiTarpeeksiSaldoa.saldo()); //Kortin rahamaara ei muutu
+        assertEquals(0, paate.edullisiaLounaitaMyyty()); //Ei lisää mitään tilastoihin
+        assertEquals(false, paate.syoEdullisesti(korttiEiTarpeeksiSaldoa));
+    }
+
+    @Test
+    public void syoMaukkaastiToimiiKunKorttillaOnKatetta() {
+        paate.syoMaukkaasti(korttiSaldoaRiittaa);
+        int kortinsaldo = korttiSaldoaRiittaa.saldo();
+        assertEquals(9600, kortinsaldo); //Ottaa rahaa kortilta
+        assertEquals(100000, paate.kassassaRahaa()); //Kassan rahamaara ei muutu
+        assertEquals(1, paate.maukkaitaLounaitaMyyty()); //Lisää myydyn lounaan tilastoon
+        assertEquals(true, paate.syoMaukkaasti(korttiSaldoaRiittaa));
+
+    }
+
+    @Test
+    public void syoMaukkaastiToimiiKunKortillaEiKatetta() {
+        paate.syoMaukkaasti(korttiEiTarpeeksiSaldoa);
+        assertEquals(100000, paate.kassassaRahaa()); //Kassan rahamaara ei muutu
+        assertEquals(100, korttiEiTarpeeksiSaldoa.saldo()); //Kortin rahamaara ei muutu
+        assertEquals(0, paate.edullisiaLounaitaMyyty()); //Ei lisää mitään tilastoihin
+        assertEquals(false, paate.syoMaukkaasti(korttiEiTarpeeksiSaldoa));
+    }
+
+    @Test
+    public void kortinLatausToimiiPositiivisellaSummalla() {
+        paate.lataaRahaaKortille(korttiSaldoaRiittaa, 1000);
+        assertEquals(101000, paate.kassassaRahaa()); //Kassan summa kasvaa
+        assertEquals(11000, korttiSaldoaRiittaa.saldo()); //Kortin saldo muuttuu
+
+    }
+
+    @Test
+    public void kortinLatausToimiiNegatiivisellaSummalla() {
+        paate.lataaRahaaKortille(korttiSaldoaRiittaa, -1000);
+        assertEquals(100000, paate.kassassaRahaa()); //Kassan summa ei muutu
+        assertEquals(10000, korttiSaldoaRiittaa.saldo()); //Kortin saldo ei muutu
+
+    }
+}
+
+/*
+package com.mycompany.unicafe;
+
+public class Kassapaate {
+
+    private int kassassaRahaa;
+    private int edulliset;
+    private int maukkaat;
+
+    public Kassapaate() {
+        this.kassassaRahaa = 100000;
+    }
+
+    public void lataaRahaaKortille(Maksukortti kortti, int summa) {
+        if (summa >= 0) {
+            kortti.lataaRahaa(summa);
+            this.kassassaRahaa += summa;
+        } else {
+            return;
+        }
+    }
+
+    public int kassassaRahaa() {
+        return kassassaRahaa;
+    }
+
+}
+ */
+
+ /*
+
     
+Tee testit jotka testaavat ainakin seuraavia asioita:
+- Varmista jacocon avulla, että kassapäätteen testeillä on 100% lause- ja haaraumakattavuus! 
+
 - Talleta kohdassa testikattavuus olevan kuvan tyylinen screenshot projektisi kattavuusraportista palautusrepositoriosi hakemistoon laskarit/viikko2.
 
 - Muista tallentaa tekemäsi muutokset gitiin ja työntää ne Githubiin (git push).
 
-- Muista tehdä myös lopus Maksukortti-testit
-    
-    */
-    
-    
-    
-    
-    public KassapaateTest() {
-    }
-    
-    @BeforeClass
-    public static void setUpClass() {
-    }
-    
-    @AfterClass
-    public static void tearDownClass() {
-    }
-    
-    @Before
-    public void setUp() {
-    }
-    
-    @After
-    public void tearDown() {
-    }
-
-    // TODO add test methods here.
-    // The methods must be annotated with annotation @Test. For example:
-    //
-    // @Test
-    // public void hello() {}
-}
+ */

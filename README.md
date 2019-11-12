@@ -1,6 +1,7 @@
-## Ohjelmistotekniikan laskarit 
+## StudyTracker
 
-**MUUTOS** 
+
+**Laskarit** 
 
 **Viikko 1**
 

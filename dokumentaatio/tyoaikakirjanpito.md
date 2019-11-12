@@ -2,6 +2,6 @@
 
 |**pvm.**   |**aika (h)** |**mitä tehty**                          |
 |---	      |---          |---                                     |
-|12.11.     |             |Työaikakirjanpito ja vaatimusmäärittely |
+|12.11.     |      1.5    |Työaikakirjanpito ja vaatimusmäärittely |
 |           |             |                                        |
 |           |             |                                        |

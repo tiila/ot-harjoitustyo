@@ -8,7 +8,7 @@ Ohjelmistotekniikan projekti.
 
 [Työaikakirjanpito](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
-**Laskarit** 
+## Laskarit 
 
 **Viikko 1**
 

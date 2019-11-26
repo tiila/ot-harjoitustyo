@@ -17,6 +17,7 @@ Lähtökohtaisesti sovelluksen perusversiolla on yksi käyttäjärooli, opiskeli
 
 ### Kirjautumisen jälkeen opiskelijakäyttäjä
 
+* näkee kurssivalikoiman kurssit TEHTY
 * näkee meneillään olevat omat kurssinsa
 * voi lisätä uuden suoritettavan kurssin valitsemalla sen kurssitietokannasta
 * voi kirjata kursseihin käyttämänsä opiskelutunnit

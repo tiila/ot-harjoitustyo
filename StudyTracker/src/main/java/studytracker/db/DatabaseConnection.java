@@ -47,42 +47,23 @@ public class DatabaseConnection {
             Connection connection = connect();
 
             PreparedStatement createUserTable = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, name VARCHAR(100), status VARCHAR(10));"
+                    "CREATE TABLE IF NOT EXISTS user (id INTEGER PRIMARY KEY, name VARCHAR(100), status VARCHAR(10))"
             );
             createUserTable.execute();
             createUserTable.close();
 
             PreparedStatement createCourse = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS course (id VARCHAR(50), name VARCHAR(100), credits INTEGER);"
+                    "CREATE TABLE IF NOT EXISTS course (id VARCHAR(50), name VARCHAR(100), credits INTEGER)"
             );
             createCourse.execute();
             createCourse.close();
-            
+
             PreparedStatement createLog = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, date DATE, note VARCHAR(200));" //kurssi, käyttäjä
+                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, date DATE, note VARCHAR(200))" //kurssi, käyttäjä
             );
             createLog.execute();
             createCourse.close();
 
-            /* TOIMII!
-            
-            String SQL_INSERT = "INSERT INTO Course (id, name, credits) VALUES (?, ?, ?);";
-
-            PreparedStatement insertCourse = connection.prepareStatement(SQL_INSERT);
-
-            insertCourse.setString(1, "MAT11008");
-            insertCourse.setString(2, "Advanced Calculus");
-            insertCourse.setInt(3, 5);
-
-            int row = insertCourse.executeUpdate();
-            insertCourse.close();
-
-            System.out.println(row);
-
-            connection.close();
-            
-            
-             */
             insertCourses(courses);
             connection.close();
 
@@ -96,9 +77,9 @@ public class DatabaseConnection {
         Connection connection = connect();
         //    PreparedStatement insertCourses = connection.prepareStatement("INSERT INTO Course (id, name, credits) VALUES (?, ?, ?);");
 
-        String SQL_INSERT = "INSERT INTO Course (id, name, credits) VALUES (?, ?, ?);";
+      //  String SQL_INSERT = "INSERT INTO Course (id, name, credits) VALUES (?, ?, ?)";
 
-        PreparedStatement insertCourses = connection.prepareStatement(SQL_INSERT);
+        PreparedStatement insertCourses = connection.prepareStatement("INSERT INTO Course (id, name, credits) VALUES (?, ?, ?)");
 
         courses.add(mat11008);
         courses.add(mat11006);

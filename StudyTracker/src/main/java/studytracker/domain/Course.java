@@ -22,6 +22,13 @@ public class Course {
 
     }
 
+    public Course() {
+        this.id = "";
+        this.name = "";
+        this.credits = 0;
+
+    }
+
     public String getId() {
         return id;
     }
@@ -46,4 +53,10 @@ public class Course {
         this.credits = credits;
     }
 
+    @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append(getId()).append("\t").append(getName()).append("\t").append(getCredits()).append("\n");
+        return sb.toString();
+    }
 }

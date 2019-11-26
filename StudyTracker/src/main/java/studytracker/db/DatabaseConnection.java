@@ -75,9 +75,6 @@ public class DatabaseConnection {
 
     public void insertCourses(List<Course> courses) throws SQLException {
         Connection connection = connect();
-        //    PreparedStatement insertCourses = connection.prepareStatement("INSERT INTO Course (id, name, credits) VALUES (?, ?, ?);");
-
-      //  String SQL_INSERT = "INSERT INTO Course (id, name, credits) VALUES (?, ?, ?)";
 
         PreparedStatement insertCourses = connection.prepareStatement("INSERT INTO Course (id, name, credits) VALUES (?, ?, ?)");
 
@@ -98,12 +95,10 @@ public class DatabaseConnection {
         int i;
 
         for (Course course : courses) {
-            System.out.println(course.getId());
+
             insertCourses.setString(1, course.getId());
             insertCourses.setString(2, course.getName());
-            System.out.println(course.getName());
             insertCourses.setInt(3, course.getCredits());
-            System.out.println(course.getCredits());
             i = insertCourses.executeUpdate();
             i++;
 
@@ -112,6 +107,57 @@ public class DatabaseConnection {
         connection.close();
     }
 
+    private Course searchCourseInfo(String userInput, Connection connection) throws SQLException {
+
+        Course c = new Course();
+
+        try {
+
+            PreparedStatement searchCourseInfo = connection.prepareStatement("SELECT * FROM course WHERE id=" + userInput + "OR name=" + userInput);
+            ResultSet resultSet = searchCourseInfo.executeQuery();
+
+            while (resultSet.next()) {
+
+                c.setId(resultSet.getString("id"));
+                c.setName(resultSet.getString("name"));
+                c.setCredits(resultSet.getInt("credits"));
+
+                System.out.println(c);
+            }
+
+            return c;
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return c;
+    }
+
+    public List<Course> getAllCourses() {
+        List<Course> availableCourses = new ArrayList<>();
+        try {
+            Connection connection = connect();
+            PreparedStatement getCoursesQuery = connection.prepareStatement("SELECT * FROM Course;");
+            ResultSet resultSet = getCoursesQuery.executeQuery();
+
+            while (resultSet.next()) {
+                Course c = new Course();
+                c.setId(resultSet.getString("id"));
+                c.setName(resultSet.getString("name"));
+                c.setCredits(resultSet.getInt("credits"));
+                availableCourses.add(c);
+
+            }
+
+            getCoursesQuery.close();
+            resultSet.close();
+            connection.close();
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        return availableCourses;
+    }
 
     /*
     Tietokantayhteys

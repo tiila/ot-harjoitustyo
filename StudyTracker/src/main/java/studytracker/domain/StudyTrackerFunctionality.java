@@ -6,22 +6,30 @@
 package studytracker.domain;
 
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import studytracker.db.DatabaseConnection;
 
 /**
  *
  * @author dell
  */
-public class Functionality {
+public class StudyTrackerFunctionality {
 
     private DatabaseConnection dbconnection;
 
     // @throws SQLException jos tietokantaa ei voida luoda
-    public Functionality() throws SQLException {
+    public StudyTrackerFunctionality() throws SQLException {
 
         this.dbconnection = new DatabaseConnection("studytracker.db");
 
     }
-}
 
-//metodit
+    //metodit
+    public List<Course> showAvailableCourses() {
+
+        return dbconnection.getAllCourses();
+
+    }
+
+}

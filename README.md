@@ -8,3 +8,5 @@ Ohjelmistotekniikan projekti.
 
 [Työaikakirjanpito](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
+[Arkkitehtuuri](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+

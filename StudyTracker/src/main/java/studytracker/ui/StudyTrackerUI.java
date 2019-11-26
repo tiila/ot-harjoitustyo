@@ -5,26 +5,35 @@
  */
 package studytracker.ui;
 
+import java.sql.SQLException;
 import javafx.application.Application;
 import javafx.stage.Stage;
-import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 
+import studytracker.domain.*;
+
 /**
+ * Sovelluksen graafinen käyttöliittymä ja sovelluksen käynnistys
  *
  * @author dell
  */
-
-
 public class StudyTrackerUI extends Application {
+
+    private Functionality functionality;
 
     Button loginButton, newProfileButton;
     Scene loginScene, profileScene, newProfileScene;
+
+    @Override
+    public void init() throws SQLException {
+        this.functionality = new Functionality(); //ei saa luotua tietokantaa
+
+    }
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -41,12 +50,20 @@ public class StudyTrackerUI extends Application {
         loginScene = new Scene(layoutLogin, 1200, 700);
 
         VBox layoutProfile = new VBox(20);
-        Label tervetuloaLabel = new Label("Welcome back!");
+        Label welcomeLabel = new Label("Welcome back!");
+
+        Label findNewCourse = new Label("Find and add a new course");
+        TextField searchInput = new TextField();
+        searchInput.setPromptText("Please type in course name or code"); //Tulee nyt vasta kun klikkaa jotain
+
+        Button addButton = new Button("Add");
+        addButton.setOnAction(e -> isInDB(searchInput, searchInput.getText()));
+
         Button logoutButton = new Button("Log out");
         Button logoutAndCloseButton = new Button("Log out and close");
         Button settingsButton = new Button("Change Settings");
 
-        layoutProfile.getChildren().addAll(tervetuloaLabel, settingsButton, logoutButton, logoutAndCloseButton);
+        layoutProfile.getChildren().addAll(welcomeLabel, findNewCourse, searchInput, addButton, settingsButton, logoutButton, logoutAndCloseButton);
         logoutButton.setOnAction(e -> primaryStage.setScene(loginScene)); //+ kirjaudu ulos
         logoutAndCloseButton.setOnAction(e -> closeProgram(primaryStage));
         settingsButton.setOnAction(e -> SettingsBox.display("Settings", "Change settings or delete your account here"));
@@ -72,6 +89,12 @@ public class StudyTrackerUI extends Application {
 
     public static void main(String[] args) {
         launch(StudyTrackerUI.class); // launch(args); 
+    }
+
+    private boolean isInDB(TextField searchInput, String text) {
+        return false;
+        //löytyyko tietokannasta, try?
+
     }
 
 }

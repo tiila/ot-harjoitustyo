@@ -1,3 +1,2 @@
 target
-studytracker.db
-test.db
+*.db

@@ -1,4 +1,3 @@
-    <suppress files="studytracker.ui.SettingsBox.java" checks="[a-zA-Z0-9]*"/>
 
 <?xml version="1.0"?>
 

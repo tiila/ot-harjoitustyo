@@ -69,11 +69,10 @@ public class DatabaseConnection {
             );
             createUserCourse.execute();
             createUserCourse.close();
-            
-            // Change when different users 
-            PreparedStatement emptyUserCourseTable = connection.prepareStatement("DELETE FROM Usercourse");
-            emptyUserCourseTable.execute();
 
+            // Change when different users 
+            // PreparedStatement emptyUserCourseTable = connection.prepareStatement("DELETE FROM Usercourse");
+            //emptyUserCourseTable.execute();
             insertCourses(courses);
             connection.close();
 
@@ -121,7 +120,6 @@ public class DatabaseConnection {
     }
 
     private Course searchCourseInfo(String userInput, Connection connection) throws SQLException {
-
         Course c = new Course();
 
         try {
@@ -135,13 +133,14 @@ public class DatabaseConnection {
                 c.setName(resultSet.getString("name"));
                 c.setCredits(resultSet.getInt("credits"));
 
-                System.out.println(c);
             }
 
             return c;
+
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
+
         return c;
     }
 

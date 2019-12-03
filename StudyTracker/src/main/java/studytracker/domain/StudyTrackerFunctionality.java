@@ -6,13 +6,8 @@
 package studytracker.domain;
 
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Arrays;
-import static java.util.Collections.list;
-import java.util.Iterator;
 import java.util.List;
 import javafx.scene.control.TextField;
-import org.sqlite.util.StringUtils;
 import studytracker.db.DatabaseConnection;
 import studytracker.db.UserCourseDao;
 
@@ -44,11 +39,10 @@ public class StudyTrackerFunctionality {
         return sb.toString();
     }
 
-    public List<UserCourse> showMyCourses(Integer userId) throws SQLException {
+    public List<UserCourse> showMyCourses(int userId) throws SQLException {
 
         UserCourseDao dao = new UserCourseDao();
         List<UserCourse> myCourses = dao.list(userId);
-        System.out.println(myCourses.toString());
         return myCourses;
     }
 
@@ -61,18 +55,9 @@ public class StudyTrackerFunctionality {
     }
 
     public void addUserCourse(int id, int userId, String courseId) throws SQLException {
-        System.out.println("metodi addUserCourse");
         UserCourse userCourse = new UserCourse(id, userId, courseId);
-        System.out.println(userCourse.getUserId() + userCourse.getCourseId());
         UserCourseDao dao = new UserCourseDao();
         dao.create(userCourse);
-
-        System.out.println("Onnistui");
-
-    }
-
-    public static UserCourse getCourse(String user_id) {
-        return null;
 
     }
 

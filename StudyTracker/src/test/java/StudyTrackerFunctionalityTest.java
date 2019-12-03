@@ -5,6 +5,7 @@
  */
 
 import java.sql.SQLException;
+import java.util.List;
 import org.junit.After;
 import org.junit.AfterClass;
 import org.junit.Before;
@@ -12,6 +13,9 @@ import org.junit.BeforeClass;
 import org.junit.Test;
 import static org.junit.Assert.*;
 import studytracker.db.DatabaseConnection;
+import studytracker.db.UserCourseDao;
+import studytracker.domain.StudyTrackerFunctionality;
+import studytracker.domain.UserCourse;
 
 /**
  *
@@ -20,6 +24,13 @@ import studytracker.db.DatabaseConnection;
 public class StudyTrackerFunctionalityTest {
 
     DatabaseConnection dbconnection;
+    StudyTrackerFunctionality functionality;
+
+    UserCourseDao dao = new UserCourseDao();
+    List<UserCourse> myCourses;
+    int id = 1;
+    int userId = 1;
+    String courseId = "";
 
     public StudyTrackerFunctionalityTest() {
     }
@@ -35,6 +46,7 @@ public class StudyTrackerFunctionalityTest {
     @Before
     public void setUp() throws SQLException {
         dbconnection = new DatabaseConnection("test.db");
+        dao = new UserCourseDao();
     }
 
     @After
@@ -58,6 +70,37 @@ public class StudyTrackerFunctionalityTest {
                 + ", TKT10004	Tietokantojen perusteet	5\n"
                 + ", TKT10005	Tietokoneen toiminta	5\n"
                 + "]", dbconnection.getAllCourses().toString());
+
+    }
+
+    public void showAvailableCoursesWorks() {
+
+    }
+
+    public void showMyCoursesWorks() throws SQLException {
+        id = 1;
+        userId = 1;
+        courseId = "MAT11002";
+        functionality.addUserCourse(id, userId, courseId);
+        assertEquals("[MAT11002]", functionality.showMyCourses(userId));
+
+    }
+
+    public void addUserCourseWorks() throws SQLException {
+        id = 1;
+        userId = 1;
+        courseId = "TKT10002";
+        functionality.addUserCourse(id, userId, courseId);
+        assertEquals("[TKT10002]", functionality.showMyCourses(userId));
+
+    }
+
+    public void showACourseWorks() throws SQLException {
+        id = 1;
+        userId = 1;
+        courseId = "TKT10002";
+        functionality.addUserCourse(id, userId, courseId);
+        assertEquals("TKT10002", functionality.showACourse(id));
 
     }
 

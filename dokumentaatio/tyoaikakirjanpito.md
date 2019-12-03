@@ -11,6 +11,6 @@
 |25.11.     |      6.5    |Luokkia ja tietokantatoiminnallisuutta                             |
 |26.11.     |      4.0    |Kurssilistauksen toteutus                                          |
 |2.12.      |      5.0    |Omien kurssien lisäämisen toteutus                                 |
-|3.12.      |      4.0    |Omien kurssien listaamisen toteutus                                |
+|3.12.      |      4.0    |Omien kurssien listaamisen toteutus ja testien toteutusta          |
 
 Yhteensä: 35h

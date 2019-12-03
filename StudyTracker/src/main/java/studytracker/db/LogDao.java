@@ -11,4 +11,5 @@ package studytracker.db;
  */
 public class LogDao {
     
+    
 }

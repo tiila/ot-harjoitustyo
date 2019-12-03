@@ -10,5 +10,5 @@ package studytracker.db;
  * @author dell
  */
 public class UserDao {
-    
+
 }

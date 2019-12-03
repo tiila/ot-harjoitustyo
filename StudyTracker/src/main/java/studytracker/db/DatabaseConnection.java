@@ -59,10 +59,20 @@ public class DatabaseConnection {
             createCourse.close();
 
             PreparedStatement createLog = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, date DATE, note VARCHAR(200))" //kurssi, käyttäjä
+                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, date DATE, note VARCHAR(200))" // Course, user
             );
             createLog.execute();
             createCourse.close();
+
+            PreparedStatement createUserCourse = connection.prepareStatement(
+                    "CREATE TABLE IF NOT EXISTS usercourse (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, course_id VARCHAR(50))"
+            );
+            createUserCourse.execute();
+            createUserCourse.close();
+            
+            // Change when different users 
+            PreparedStatement emptyUserCourseTable = connection.prepareStatement("DELETE FROM Usercourse");
+            emptyUserCourseTable.execute();
 
             insertCourses(courses);
             connection.close();
@@ -75,6 +85,9 @@ public class DatabaseConnection {
 
     public void insertCourses(List<Course> courses) throws SQLException {
         Connection connection = connect();
+
+        PreparedStatement emptyCourseTable = connection.prepareStatement("DELETE FROM Course");
+        emptyCourseTable.execute();
 
         PreparedStatement insertCourses = connection.prepareStatement("INSERT INTO Course (id, name, credits) VALUES (?, ?, ?)");
 

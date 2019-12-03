@@ -8,10 +8,10 @@ package studytracker.db;
 import studytracker.domain.Course;
 
 /**
- *
+ *LogDao
  * @author dell
  */
-public class CourseDAO {
+public class CourseDao {
 
     private Course processedCourse;
     private String database;

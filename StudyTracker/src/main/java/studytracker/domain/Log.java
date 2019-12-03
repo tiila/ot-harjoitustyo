@@ -18,8 +18,8 @@ public class Log {
     private float timespent;
     private LocalDate date;
     private String note;
-    //course
-    //user
+    private String course_id;
+    private int user_id;
 
     public Log(int id, float timespent, Date date, String note) {
 

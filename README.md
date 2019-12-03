@@ -2,6 +2,7 @@
 
 StudyTracker-sovelluksen avulla käyttäjä voi pitää kirjaa kursseistaan ja opiskelustaan. Käyttäjät voivat lisätä itselleen kursseja kurssitietokannasta sekä kirjata opiskeluun käyttämänsä ajan kurssikohtaisesti. Sovellus on Ohjelmistotekniikan kurssin projekti syksyllä 2019.
 
+
 ## Dokumentaatio
 
 [Vaatimusmäärittely](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md) 
@@ -10,11 +11,14 @@ StudyTracker-sovelluksen avulla käyttäjä voi pitää kirjaa kursseistaan ja o
 
 [Arkkitehtuuri](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
 
+
 ## Releaset
 
 [Viikko 5]()
 
+
 ## Komentorivitoimnnot
+
 
 ### Testaus
 
@@ -28,6 +32,7 @@ Testikattavuusraportit luodaan komennolla
 
 Testikattavuusraporttia voi tarkastella avaamalla selaimella tiedosto target/site/jacoco/index.html
 
+
 ### Suoritettavan jarin generointi
 
 Komento
@@ -35,6 +40,7 @@ Komento
 `mvn package`
 
 generoi hakemistoon target suoritettavan jar-tiedoston StudyTracker-1.0-SNAPSHOT.jar
+
 
 ### Checkstyle
 

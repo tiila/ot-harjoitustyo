@@ -14,7 +14,7 @@ StudyTracker-sovelluksen avulla käyttäjä voi pitää kirjaa kursseistaan ja o
 
 ## Releaset
 
-[Viikko 5]()
+[Viikko 5](https://github.com/tiila/ot-harjoitustyo/releases/tag/Viikko5)
 
 
 ## Komentorivitoimnnot

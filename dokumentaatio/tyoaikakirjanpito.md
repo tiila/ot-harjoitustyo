@@ -13,4 +13,7 @@
 |2.12.      |      5.0    |Omien kurssien lisäämisen toteutus                                 |
 |3.12.      |      4.0    |Omien kurssien listaamisen toteutus ja testien toteutusta          |
 
+
+Ei edistynyt viikolla 6
+
 Yhteensä: 35h

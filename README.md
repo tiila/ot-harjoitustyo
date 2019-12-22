@@ -5,11 +5,17 @@ StudyTracker-sovelluksen avulla käyttäjä voi pitää kirjaa kursseistaan ja o
 
 ## Dokumentaatio
 
+[Käyttöohje]() Ei ole vielä
+
 [Vaatimusmäärittely](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/vaatimusmaarittely.md) 
+
+[Arkkitehtuurikuvaus](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
+[Testausdokumentti]() Ei ole vielä
 
 [Työaikakirjanpito](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/tyoaikakirjanpito.md)
 
-[Arkkitehtuuri](https://github.com/tiila/ot-harjoitustyo/blob/master/dokumentaatio/arkkitehtuuri.md)
+
 
 
 ## Releaset
@@ -40,6 +46,14 @@ Komento
 `mvn package`
 
 generoi hakemistoon target suoritettavan jar-tiedoston StudyTracker-1.0-SNAPSHOT.jar
+
+### JavaDoc
+
+JavaDoc generoidaan komennolla
+
+ `mvn javadoc:javadoc`
+ 
+ JavaDocia voi tarkastella avaamalla selaimella tiedosto *target/site/apidocs/index.html*
 
 
 ### Checkstyle

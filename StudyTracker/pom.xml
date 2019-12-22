@@ -41,7 +41,7 @@
             <artifactId>jacoco-maven-plugin</artifactId>
             <version>0.8.0</version>
 	    <configuration>
-		<exculdes>
+		<excludes>
 			<exclude>studytracker/ui/*</exclude>
 		</excludes>
             <executions>

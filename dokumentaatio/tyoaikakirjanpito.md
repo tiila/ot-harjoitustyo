@@ -12,8 +12,10 @@
 |26.11.     |      4.0    |Kurssilistauksen toteutus                                          |
 |2.12.      |      5.0    |Omien kurssien lisäämisen toteutus                                 |
 |3.12.      |      4.0    |Omien kurssien listaamisen toteutus ja testien toteutusta          |
+|21.12.     |      2.0    |Tuntikirjanpidon toteutus                                          |
+|22.12.     |      6.0    |Tuntikirjanpidon toteutus                                          |
 
 
 Ei edistynyt viikolla 6
 
-Yhteensä: 35h
+Yhteensä: 43h

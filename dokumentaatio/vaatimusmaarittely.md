@@ -2,33 +2,29 @@
 
 ## Sovelluksen tarkoitus
 
-Sovellus on tarkoitettu opiskelijoille opiskeluun käytetyn ajan kurssikohtaiseen kirjaamiseen ja seuraamiseen. Sovellusta voivat voivat käyttää rekisteröityneet käyttäjät ja sen avulla voi suunnitella opiskeluun käytetyn ajan jakautumista ja hakea tilastoja toteutuneista opiskelutunneista.
+Sovellus on tarkoitettu opiskelijoille opiskeluun käytetyn ajan kurssikohtaiseen kirjaamiseen ja seuraamiseen. Sovellusta tallentaa tiedot paikallisesti ja sitä voidaan käyttää henkilökohtaiseen käyttöön.
 
 ## Käyttäjät 
 
-Lähtökohtaisesti sovelluksen perusversiolla on yksi käyttäjärooli, opiskelija. Sovellusta voidaan myöhemmin laajentaa myös luomalla opettajien käyttöön soveltuva käyttäjärooli sekä ylläpitäjän käyttäjärooli.
- 
+Lähtökohtaisesti sovelluksen perusversiolla on yksi käyttäjärooli, opiskelija. Sovellusta voitaisiin myöhemmin laajentaa myös luomalla opettajien käyttöön soveltuva käyttäjärooli sekä ylläpitäjän käyttäjärooli.
+
 ## Perusversion tarjoama toiminnallisuus
 
-### Ennen kirjautumista käyttäjä
+### Sovelluksen käyttäjä
 
-* voi luoda järjestelmään käyttäjätunnuksen
-* voi kirjautua järjestelmään
+* näkee kaikki kurssivalikoiman kurssit
+* voi lisätä itselleen uuden suoritettavan kurssin kurssikoodin tai nimen perusteella
+* voi nähdä omiksi kursseikseen lisäämänsä kurssit
+* voi kirjata kursseihin käyttämänsä opiskelutunnit sekä muistiinpanoja
 
-### Kirjautumisen jälkeen opiskelijakäyttäjä
-
-* näkee kurssivalikoiman kurssit TEHTY
-* voi nähdä omat meneillään olevat kurssinsa TEHTY
-* voi lisätä uuden suoritettavan kurssin valitsemalla sen kurssitietokannasta TEHTY
-* voi kirjata kursseihin käyttämänsä opiskelutunnit
-* voi hakea kurssikohtaisen tilanteen ja tilastoja opiskelemistaan tunneista
- 
 ## Jatkokehitysideoita
 
 Perusversion jälkeen ohjelmaa voitaisiin täydentää esimerkiksi seuraavilla rooleilla ja toiminnallisuuksilla:
 
 **Opiskelijakäyttäjät:**
 
+* Käyttäjäkohtainen rekisteröityminen
+* voi hakea kurssikohtaisten tuntikirjanpidon tilanteen ja muita tilastoja opiskelemistaan tunneista
 * Opiskelutavotteiden määrittäminen esimerkiksi viikkokohtaisesti
 * Tilastojen hakeminen myös muiden kurssin opiskelijoiden käyttämistä tunneista
 

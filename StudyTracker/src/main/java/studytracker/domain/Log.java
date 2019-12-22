@@ -5,9 +5,6 @@
  */
 package studytracker.domain;
 
-import java.time.LocalDate;
-import java.util.Date;
-
 /**
  *
  * @author dell
@@ -16,16 +13,15 @@ public class Log {
 
     private int id;
     private float timespent;
-    private LocalDate date;
-    private String note;
     private String courseId;
+    private String note;
     private int userId;
 
-    public Log(int id, float timespent, Date date, String note) {
+    public Log(float timespent, String courseId, String note) {
 
-        this.id = id;
+        this.id = 1;
         this.timespent = timespent;
-        this.date = LocalDate.now();
+        this.courseId = courseId;
         this.note = note;
 
     }
@@ -33,8 +29,20 @@ public class Log {
     public Log() {
         this.id = 0;
         this.timespent = 0;
-        this.date = LocalDate.now();
+
         this.note = "";
+    }
+
+    public float getTimeSpent() {
+        return this.timespent;
+    }
+
+    public String getCourseId() {
+        return this.courseId;
+    }
+
+    public String getNote() {
+        return this.note;
     }
 
 }

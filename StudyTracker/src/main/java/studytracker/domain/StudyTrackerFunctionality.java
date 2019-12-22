@@ -9,6 +9,7 @@ import java.sql.SQLException;
 import java.util.List;
 import javafx.scene.control.TextField;
 import studytracker.db.DatabaseConnection;
+import studytracker.db.LogDao;
 import studytracker.db.UserCourseDao;
 
 /**
@@ -59,6 +60,11 @@ public class StudyTrackerFunctionality {
         UserCourseDao dao = new UserCourseDao();
         dao.create(userCourse);
 
+    }
+    public void addLog(float timespent, String courseId, String note) throws SQLException {
+        Log log = new Log(timespent, courseId, note); 
+        LogDao dao = new LogDao();
+        dao.create(log);
     }
 
     // Find if course is in DB, try, add to functionality

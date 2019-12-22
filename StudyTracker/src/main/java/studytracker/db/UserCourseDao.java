@@ -7,8 +7,6 @@ package studytracker.db;
 
 import java.sql.*;
 import java.util.*;
-import studytracker.domain.Course;
-
 import studytracker.domain.UserCourse;
 
 /**
@@ -38,12 +36,12 @@ public class UserCourseDao implements Dao<UserCourse, Integer> {
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Usercourse"
                 + " (user_id, course_id) "
                 + " VALUES (?, ?)");
-        // stmt.setInt(1, userCourse.getId());
         stmt.setInt(1, userCourse.getUserId());
         stmt.setString(2, userCourse.getCourseId());
 
         stmt.executeUpdate();
         connection.close();
+        System.out.println("Onnistui");
     }
 
     @Override
@@ -68,11 +66,6 @@ public class UserCourseDao implements Dao<UserCourse, Integer> {
     }
 
     @Override
-    public UserCourse update(UserCourse object) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet.");
-    }
-
-    @Override
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet.");
     }
@@ -82,28 +75,22 @@ public class UserCourseDao implements Dao<UserCourse, Integer> {
 
         List<UserCourse> myCourses = new ArrayList<>();
 
-        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
-
-        PreparedStatement stmt = connection.prepareStatement("SELECT course_id FROM Usercourse WHERE user_id = ?");
-        stmt.setInt(1, userId);
-        ResultSet rs = stmt.executeQuery();
-
-        while (rs.next()) {
-            UserCourse course = new UserCourse();
-            course.setCourseId(rs.getString("course_id"));
-            myCourses.add(course);
+        try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbName)) {
+            PreparedStatement stmt = connection.prepareStatement("SELECT course_id FROM Usercourse WHERE user_id = ?");
+            stmt.setInt(1, userId);
+            ResultSet rs = stmt.executeQuery();
+            
+            while (rs.next()) {
+                UserCourse course = new UserCourse();
+                course.setCourseId(rs.getString("course_id"));
+                myCourses.add(course);
+            }
+            
+            stmt.close();
+            rs.close();
         }
-
-        stmt.close();
-        rs.close();
-        connection.close();
 
         return myCourses;
 
-    }
-
-    @Override
-    public List<UserCourse> list() throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); 
     }
 }

@@ -27,10 +27,12 @@ import studytracker.domain.*;
 public class StudyTrackerUI extends Application {
 
     private StudyTrackerFunctionality functionality;
+    private final int WIDTH = 1000;
+    private final int HEIGHT = 800;
     private int userId = 0;
+    private String username = "";
     private Scene loginScene;
     private Scene profileScene;
-    private Scene newProfileScene;
 
     Button loginButton, newProfileButton;
 
@@ -49,109 +51,149 @@ public class StudyTrackerUI extends Application {
 
         Label usernameLabel = new Label("Username:");
         TextField usernameInput = new TextField();
+        Label loginSuccessful = new Label("Please give a username to login");
 
-        loginInputPane.getChildren().addAll(usernameLabel, usernameInput);
+        loginInputPane.getChildren().addAll(usernameLabel, usernameInput, loginSuccessful);
 
         loginButton = new Button("Log in");
-        newProfileButton = new Button("Create a new profile");
 
-        newProfileButton.setOnAction(e -> primaryStage.setScene(newProfileScene));
+        loginPane.getChildren().addAll(loginInputPane, loginButton);
 
-        loginPane.getChildren().addAll(loginInputPane, loginButton, newProfileButton);
+        loginScene = new Scene(loginPane, WIDTH, HEIGHT);
 
-        loginScene = new Scene(loginPane, 1000, 600);
+        loginButton.setOnAction(e -> {
+            username = usernameInput.getText();
+            if (!username.isEmpty()) {
 
-        loginButton.setOnAction(e -> primaryStage.setScene(profileScene));
-
-        newProfileButton.setOnAction(e -> primaryStage.setScene(newProfileScene));
-
-        // New Profile Scene
-        VBox newProfilePane = new VBox(10);
-        HBox newInputPane = new HBox(10);
-
-        Label newUsernameLabel = new Label("New username: ");
-        TextField newUsernameInput = new TextField();
-
-        newInputPane.getChildren().addAll(newUsernameLabel, newUsernameInput);
-
-        newProfilePane.getChildren().addAll(newInputPane);
-
-        newProfileScene = new Scene(newProfilePane, 1000, 600);
+                primaryStage.setScene(profileScene);
+            } else {
+                loginSuccessful.setText("Couldn't login, please give a username!");
+            }
+        });
 
         // Profile Scene
         VBox layoutProfile = new VBox(20);
+
         Label welcomeLabel = new Label("Welcome back! See below for all available courses (course code, name, study credits).");
         Label myCoursesLabel = new Label("My courses");
 
         Label findNewCourse = new Label("Find and add a new course");
         TextField searchInput = new TextField();
-        searchInput.setPromptText("Please type in course name or code"); // Huom. ei tuu suoraan
+
+        searchInput.setPromptText("Please type in course name or code");
 
         Button addButton = new Button("Add");
-        addButton.setOnAction(e -> {
+
+        addButton.setOnAction(e
+                -> {
             String courseId = searchInput.getText();
 
             int usercourseId = 1;
             try {
                 functionality.addUserCourse(usercourseId, userId, courseId);
 
-                System.out.println(courseId);
-
             } catch (SQLException ex) {
                 Logger.getLogger(StudyTrackerUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
+        }
+        );
 
         Button logoutButton = new Button("Log out");
         Button logoutAndCloseButton = new Button("Log out and close");
-        Button settingsButton = new Button("Change Settings");
 
         // Available courses
         TextArea availableCourses = new TextArea();
+
         availableCourses.setText(functionality.showAvailableCourses().toString());
-        
+
         // My courses
         TextArea myCourses = new TextArea();
-        myCourses.setText("You have not added any courses yet."); // If no courses have been added
+
         myCourses.setText(functionality.showMyCourses(userId).toString());
+
+        if (myCourses.getText().isEmpty()) {
+            myCourses.setText("You have not added any courses yet.");
+        }
 
         // Update my courses view
         Button updateMyCourses = new Button("Update your courses");
-        updateMyCourses.setOnAction(e -> {
+
+        updateMyCourses.setOnAction(e
+                -> {
             try {
                 myCourses.setText(functionality.showMyCourses(userId).toString());
             } catch (SQLException ex) {
                 Logger.getLogger(StudyTrackerUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });
-        
+        }
+        );
+
         // Log hours 
+        Label timeSpentLabel = new Label("Time spent:");
+        TextField timeSpentInput = new TextField();
+        timeSpentInput.setPromptText("Time as hours, e.g. '2.5' ");
+
+        Label courseIdLabel = new Label("Course code:");
+        TextField courseIdInput = new TextField();
+        courseIdInput.setPromptText("Type in course code, e.g. 'MAT11008'");
+
+        Label noteLabel = new Label("Notes:");
+        TextField noteInput = new TextField();
+        noteInput.setPromptText("Add an optional short note");
+
+        Button logHours = new Button("Save log");
         
+        //Toimii
+        logHours.setOnAction(e -> {
+            float timespent = Float.parseFloat(timeSpentInput.getText());
+            String courseId = timeSpentInput.getText();
+            String note = noteInput.getText();
+
+            try {
+                functionality.addLog(timespent, courseId, note);
+            } catch (SQLException ex) {
+                Logger.getLogger(StudyTrackerUI.class.getName()).log(Level.SEVERE, null, ex);
+            }
+     
+        });
+
+        Button logNew = new Button("Log new hours");
+
+        logNew.setOnAction(e -> {
+            timeSpentInput.clear();
+            courseIdInput.clear();
+            noteInput.clear();
+        }
+        );
 
         // Profile layout
-        layoutProfile.getChildren().addAll(welcomeLabel, availableCourses, findNewCourse, searchInput, addButton, myCoursesLabel, myCourses, updateMyCourses, settingsButton, logoutButton, logoutAndCloseButton);
-        logoutButton.setOnAction(e -> primaryStage.setScene(loginScene)); // + log out
-        logoutAndCloseButton.setOnAction(e -> closeProgram(primaryStage));
-        settingsButton.setOnAction(e -> SettingsBox.display("Settings", "Change settings or delete your account here"));
+        layoutProfile.getChildren()
+                .addAll(welcomeLabel, availableCourses, findNewCourse, searchInput, addButton, myCoursesLabel, myCourses, updateMyCourses, timeSpentLabel, timeSpentInput, courseIdLabel, courseIdInput, noteLabel, noteInput, logHours, logNew, logoutButton, logoutAndCloseButton);
+        logoutButton.setOnAction(e
+                -> primaryStage.setScene(loginScene));
+        logoutAndCloseButton.setOnAction(e
+                -> closeProgram(primaryStage));
 
-        profileScene = new Scene(layoutProfile, 1200, 700);
+        profileScene = new Scene(layoutProfile, WIDTH, HEIGHT);
 
         primaryStage.setScene(loginScene);
-        primaryStage.setTitle("StudyTracker");
-        primaryStage.setOnCloseRequest(e -> closeProgram(primaryStage));
+
+        primaryStage.setTitle(
+                "StudyTracker");
+        primaryStage.setOnCloseRequest(e
+                -> closeProgram(primaryStage));
         primaryStage.show();
 
     }
 
     private void closeProgram(Stage primaryStage) {
-        // Log out
-        // Save 
-        System.out.println("Moikka");
+
         primaryStage.close();
     }
 
     public static void main(String[] args) {
-        launch(StudyTrackerUI.class); // launch(args); 
+        launch(StudyTrackerUI.class
+        );
     }
 
 }

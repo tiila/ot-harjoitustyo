@@ -59,7 +59,7 @@ public class DatabaseConnection {
             createCourse.close();
 
             PreparedStatement createLog = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, date DATE, note VARCHAR(200))" // Course, user
+                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, course_id VARCHAR(50), note VARCHAR(200))" 
             );
             createLog.execute();
             createCourse.close();
@@ -70,9 +70,6 @@ public class DatabaseConnection {
             createUserCourse.execute();
             createUserCourse.close();
 
-            // Change when different users 
-            // PreparedStatement emptyUserCourseTable = connection.prepareStatement("DELETE FROM Usercourse");
-            //emptyUserCourseTable.execute();
             insertCourses(courses);
             connection.close();
 
@@ -167,13 +164,12 @@ public class DatabaseConnection {
         } catch (SQLException ex) {
             Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
         }
-
         return availableCourses;
     }
-
-    /*
-    Tietokantayhteys
-     */
+    
+    
+    // DB connection
+    
     private Connection connect() {
         Connection connection = null;
         try {

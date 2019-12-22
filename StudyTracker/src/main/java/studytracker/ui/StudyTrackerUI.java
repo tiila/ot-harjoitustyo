@@ -27,12 +27,13 @@ import studytracker.domain.*;
 public class StudyTrackerUI extends Application {
 
     private StudyTrackerFunctionality functionality;
-    private final int WIDTH = 1000;
-    private final int HEIGHT = 800;
+    private final int WIDTH = 900;
+    private final int HEIGHT = 1000;
     private int userId = 0;
     private String username = "";
     private Scene loginScene;
     private Scene profileScene;
+    private Scene loggedHoursScene;
 
     Button loginButton, newProfileButton;
 
@@ -129,32 +130,32 @@ public class StudyTrackerUI extends Application {
         );
 
         // Log hours 
-        Label timeSpentLabel = new Label("Time spent:");
-        TextField timeSpentInput = new TextField();
-        timeSpentInput.setPromptText("Time as hours, e.g. '2.5' ");
-
         Label courseIdLabel = new Label("Course code:");
         TextField courseIdInput = new TextField();
         courseIdInput.setPromptText("Type in course code, e.g. 'MAT11008'");
+
+        Label timeSpentLabel = new Label("Time spent:");
+        TextField timeSpentInput = new TextField();
+        timeSpentInput.setPromptText("Time as hours, e.g. '2.5' ");
 
         Label noteLabel = new Label("Notes:");
         TextField noteInput = new TextField();
         noteInput.setPromptText("Add an optional short note");
 
         Button logHours = new Button("Save log");
-        
+
         //Toimii
         logHours.setOnAction(e -> {
+            String courseId = courseIdInput.getText();
             float timespent = Float.parseFloat(timeSpentInput.getText());
-            String courseId = timeSpentInput.getText();
             String note = noteInput.getText();
 
             try {
-                functionality.addLog(timespent, courseId, note);
+                functionality.addLog(courseId, timespent, note);
             } catch (SQLException ex) {
                 Logger.getLogger(StudyTrackerUI.class.getName()).log(Level.SEVERE, null, ex);
             }
-     
+
         });
 
         Button logNew = new Button("Log new hours");
@@ -166,9 +167,46 @@ public class StudyTrackerUI extends Application {
         }
         );
 
+        Button showLoggedHours = new Button("Show your logged hours");
+
+        loginButton.setOnAction(e
+                -> {
+            username = usernameInput.getText();
+            if (!username.isEmpty()) {
+
+                primaryStage.setScene(profileScene);
+            } else {
+                loginSuccessful.setText("Couldn't login, please give a username!");
+            }
+        }
+        );
+
+        // Logged hours scene
+        VBox loggedHoursPane = new VBox(10);
+        Label loggedHoursLabel = new Label("See below for your logged hours");
+        TextArea loggedHoursText = new TextArea();
+
+        Button returnButton = new Button("Return to profile");
+
+        returnButton.setOnAction(e
+                -> primaryStage.setScene(profileScene));
+
+        loggedHoursPane.getChildren()
+                .addAll(loggedHoursLabel, loggedHoursText, returnButton);
+        loggedHoursScene = new Scene(loggedHoursPane, WIDTH, HEIGHT);
+
+        showLoggedHours.setOnAction(e
+                -> {
+
+            loggedHoursText.setText(functionality.showLoggedHours().toString());
+
+            primaryStage.setScene(loggedHoursScene);
+        }
+        );
+
         // Profile layout
         layoutProfile.getChildren()
-                .addAll(welcomeLabel, availableCourses, findNewCourse, searchInput, addButton, myCoursesLabel, myCourses, updateMyCourses, timeSpentLabel, timeSpentInput, courseIdLabel, courseIdInput, noteLabel, noteInput, logHours, logNew, logoutButton, logoutAndCloseButton);
+                .addAll(welcomeLabel, availableCourses, findNewCourse, searchInput, addButton, myCoursesLabel, myCourses, updateMyCourses, courseIdLabel, courseIdInput, timeSpentLabel, timeSpentInput, noteLabel, noteInput, logHours, logNew, showLoggedHours, logoutButton, logoutAndCloseButton);
         logoutButton.setOnAction(e
                 -> primaryStage.setScene(loginScene));
         logoutAndCloseButton.setOnAction(e

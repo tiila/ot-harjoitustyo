@@ -41,7 +41,6 @@ public class UserCourseDao implements Dao<UserCourse, Integer> {
 
         stmt.executeUpdate();
         connection.close();
-        System.out.println("Onnistui");
     }
 
     @Override
@@ -70,7 +69,7 @@ public class UserCourseDao implements Dao<UserCourse, Integer> {
         throw new UnsupportedOperationException("Not supported yet.");
     }
 
-    public List<UserCourse> list(Integer userId) throws SQLException { // UserId as parameter
+    public List<UserCourse> list(Integer userId) throws SQLException {
         this.userId = userId;
 
         List<UserCourse> myCourses = new ArrayList<>();

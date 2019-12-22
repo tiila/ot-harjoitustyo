@@ -17,7 +17,7 @@ public class Log {
     private String note;
     private int userId;
 
-    public Log(float timespent, String courseId, String note) {
+    public Log(String courseId, float timespent, String note) {
 
         this.id = 1;
         this.timespent = timespent;
@@ -27,9 +27,8 @@ public class Log {
     }
 
     public Log() {
-        this.id = 0;
+        this.id = 1;
         this.timespent = 0;
-
         this.note = "";
     }
 
@@ -43,6 +42,25 @@ public class Log {
 
     public String getNote() {
         return this.note;
+    }
+
+    public void setTimeSpent(float timespent) {
+        this.timespent = timespent;
+    }
+
+    public void setCourseId(String courseId) {
+        this.courseId = courseId;
+    }
+
+    public void setNote(String note) {
+        this.note = note;
+    }
+    
+       @Override
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        sb.append("Course:").append(getCourseId()).append("\t Time spent: ").append(getTimeSpent()).append("\t Note: ").append(getNote()).append("\n");
+        return sb.toString();
     }
 
 }

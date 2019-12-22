@@ -11,6 +11,7 @@ import java.util.List;
 import java.util.logging.Logger;
 import java.util.logging.Level;
 import studytracker.domain.Course;
+import studytracker.domain.Log;
 
 /**
  *
@@ -38,6 +39,7 @@ public class DatabaseConnection {
 
     public DatabaseConnection(String databaseName) throws SQLException {
         this.database = databaseName;
+
         initDatabase();
     }
 
@@ -59,10 +61,10 @@ public class DatabaseConnection {
             createCourse.close();
 
             PreparedStatement createLog = connection.prepareStatement(
-                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, timespent FLOAT, course_id VARCHAR(50), note VARCHAR(200))" 
+                    "CREATE TABLE IF NOT EXISTS log (id INTEGER PRIMARY KEY, course_id VARCHAR(50), timespent FLOAT, note VARCHAR(200))"
             );
             createLog.execute();
-            createCourse.close();
+            createLog.close();
 
             PreparedStatement createUserCourse = connection.prepareStatement(
                     "CREATE TABLE IF NOT EXISTS usercourse (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, course_id VARCHAR(50))"
@@ -166,11 +168,9 @@ public class DatabaseConnection {
         }
         return availableCourses;
     }
-    
-    
+
     // DB connection
-    
-    private Connection connect() {
+    public Connection connect() {
         Connection connection = null;
         try {
             String url = "jdbc:sqlite:" + database;

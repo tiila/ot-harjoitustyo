@@ -48,9 +48,7 @@ public class StudyTrackerFunctionality {
     }
 
     public UserCourse showACourse(int id) throws SQLException {
-
         UserCourseDao dao = new UserCourseDao();
-        System.out.println(dao.read(id));
         return dao.read(id);
 
     }
@@ -61,8 +59,9 @@ public class StudyTrackerFunctionality {
         dao.create(userCourse);
 
     }
-    public void addLog(float timespent, String courseId, String note) throws SQLException {
-        Log log = new Log(timespent, courseId, note); 
+
+    public void addLog(String courseId, float timespent, String note) throws SQLException {
+        Log log = new Log(courseId, timespent, note);
         LogDao dao = new LogDao();
         dao.create(log);
     }
@@ -76,4 +75,18 @@ public class StudyTrackerFunctionality {
 
     }
 
+    public String showLoggedHours() {
+        LogDao dao = new LogDao();
+        List<Log> allLogs = dao.getAllLogs();
+
+        StringBuilder sb = new StringBuilder();
+
+        for (Log log : allLogs) {
+            sb.append(log.toString());
+            sb.append(" ");
+        }
+
+        return sb.toString();
+
+    }
 }

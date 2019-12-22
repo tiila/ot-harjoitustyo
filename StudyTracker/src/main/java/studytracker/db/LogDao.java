@@ -8,8 +8,15 @@ package studytracker.db;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import studytracker.domain.Course;
 import studytracker.domain.Log;
+import studytracker.domain.UserCourse;
 
 /**
  *
@@ -17,8 +24,9 @@ import studytracker.domain.Log;
  */
 public class LogDao implements Dao<Log, Integer> {
 
-    private float timespent;
+    private int id;
     private String courseId;
+    private float timespent;
     private String note;
     private int userId;
     private DatabaseConnection dbconnection;
@@ -39,25 +47,68 @@ public class LogDao implements Dao<Log, Integer> {
         Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
 
         PreparedStatement stmt = connection.prepareStatement("INSERT INTO Log"
-                + " (timespent, course_id, note) "
+                + " (course_id, timespent, note) "
                 + " VALUES (?, ?, ?)");
-
-        stmt.setFloat(1, log.getTimeSpent());
-        stmt.setString(2, log.getCourseId());
+        stmt.setString(1, log.getCourseId());
+        stmt.setFloat(2, log.getTimeSpent());
         stmt.setString(3, log.getNote());
 
         stmt.executeUpdate();
         connection.close();
     }
 
+
     @Override
     public Log read(Integer key) throws SQLException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+
+        Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbName);
+
+        PreparedStatement stmt = connection.prepareStatement("SELECT * FROM Usercourse WHERE id = ?");
+        stmt.setInt(1, id);
+        ResultSet rs = stmt.executeQuery();
+
+        if (!rs.next()) {
+            return null;
+        }
+
+        Log log = new Log(rs.getString("courseId"), rs.getFloat("timespent"), rs.getString("note"));
+
+        stmt.close();
+        rs.close();
+        connection.close();
+
+        return log;
     }
 
     @Override
     public void delete(Integer key) throws SQLException {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+    public List<Log> getAllLogs() {
+        List<Log> allLogs = new ArrayList<>();
+        try {
+            try (Connection connection = DriverManager.getConnection("jdbc:sqlite:" + dbName)) {
+                PreparedStatement getLogsQuery = connection.prepareStatement("SELECT * FROM Log;");
+                ResultSet resultSet = getLogsQuery.executeQuery();
+
+                while (resultSet.next()) {
+                    Log l = new Log();
+                    l.setCourseId(resultSet.getString("course_id"));
+                    l.setTimeSpent(resultSet.getFloat("timespent"));
+                    l.setNote(resultSet.getString("note"));
+                    allLogs.add(l);
+                    System.out.println(allLogs);
+                }
+
+                getLogsQuery.close();
+                resultSet.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(DatabaseConnection.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return allLogs;
     }
 
 }
